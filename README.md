@@ -1,18 +1,40 @@
-# f-date-picker
+# fsy-date-picker
 
 > A Vue.js project
 
-## Build Setup
+## 此时间选择器是基于vue + element UI研发，使用时请确认是否是使用这两种框架。
 
-``` bash
-# install dependencies
-npm install
+# 使用方式
+    npm i --save fsy-date-picker
 
-# serve with hot reload at localhost:8080
-npm run dev
+    main.js文件引入
 
-# build for production with minification
-npm run build
-```
+    import F_DatePicker from 'fsy-date-picker';
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+    Vue.use(F_DatePicker);
+
+基本用法
+    <F_DatePicker></F_DatePicker>
+
+# 属性
+参数	      说明	     类型	         可选值	         默认值
+
+size	  输入框尺寸	string	large, small, mini      -
+
+theme     主题色   string          -              red
+
+placement 位置    string        top,bottom      bottom
+
+disabled  禁用    Boolean       true,false      false
+
+format    格式    string   YYYY-MM-dd,          YYYY-MM-dd HH:mm
+
+                          YYYY-MM-dd HH:mm,
+
+                          YYYY-MM-dd HH:mm:ss,
+
+                          HH:mm
+
+
+
+
