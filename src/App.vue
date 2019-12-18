@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    演示：
+    <span>演示：</span>
     <F_DatePicker
             format="YYYY-MM-dd HH:mm"
             theme="#000000">
