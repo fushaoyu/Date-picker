@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
-import ElementUI from 'element-ui';
+import F_DatePicker from 'fsy-date-picker';
 import 'element-ui/lib/theme-chalk/index.css';
-import fsyDatePicker from 'fsy-date-picker'
+import { Input } from 'element-ui';
 
-Vue.use(ElementUI);
-Vue.use(fsyDatePicker);
+Vue.config.productionTip = false;
 
+
+Vue.use(F_DatePicker);
+Vue.use(Input);
 
 
 new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+  render: h => h(App),
+}).$mount('#app')
