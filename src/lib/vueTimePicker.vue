@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <el-input
       placeholder="请输入内容"
       prefix-icon="el-icon-date"
@@ -36,40 +36,44 @@
           </div>
         </div>
       </div>
-      <!--月-->
-      <div class="MyMonth" v-show="isMyMonth">
-        <div class="MyMonthTitle">月份</div>
-        <div class="content">
-          <div class="MyMonthNumber" v-for="item in 12" @click="chaecMonth(item)">{{item}}</div>
+
+      <div v-show="!isMyYear">
+        <!--月-->
+        <div class="MyMonth" v-show="isMyMonth">
+          <div class="MyMonthTitle">月份</div>
+          <div class="content">
+            <div class="MyMonthNumber" v-for="item in 12" @click="chaecMonth(item)">{{item}}</div>
+          </div>
         </div>
-      </div>
-      <!--日-->
-      <div class="MyDay" v-show="isMyDay">
-        <div class="MyDayTitle">日期</div>
-        <div class="content">
-          <div
-            class="MyDayNumber"
-            @click="chaeckDay(item)"
-            v-for="item in monthNumber"
-            :key="item">
-            {{item}}
+        <!--日-->
+        <div class="MyDay" v-show="isMyDay">
+          <div class="MyDayTitle">日期</div>
+          <div class="content">
+            <div
+              class="MyDayNumber"
+              @click="chaeckDay(item)"
+              v-for="item in monthNumber"
+              :key="item">
+              {{item}}
+            </div>
+          </div>
+        </div>
+        <!--时-->
+        <div class="MyHour" v-show="isMyHour">
+          <div class="MyHourTitle">小时</div>
+          <div class="content">
+            <div class="MyHourNumber" v-for="item in hour" @click="chaecHour(item)">{{item}}</div>
+          </div>
+        </div>
+        <!--分-->
+        <div class="MyMinute" v-show="isMyMinute">
+          <div class="MyMinuteTitle">分钟</div>
+          <div class="content">
+            <div class="MyHourNumber" v-for="item in minute" @click="chaecMinute(item)">{{item}}</div>
           </div>
         </div>
       </div>
-      <!--时-->
-      <div class="MyHour" v-show="isMyHour">
-        <div class="MyHourTitle">小时</div>
-        <div class="content">
-          <div class="MyHourNumber" v-for="item in hour" @click="chaecHour(item)">{{item}}</div>
-        </div>
-      </div>
-      <!--分-->
-      <div class="MyMinute" v-show="isMyMinute">
-        <div class="MyMinuteTitle">分钟</div>
-        <div class="content">
-          <div class="MyHourNumber" v-for="item in minute" @click="chaecMinute(item)">{{item}}</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -108,6 +112,7 @@
         data() {
             return {
               isShow:false,
+              isMyYear:false,//选择年时关闭时分秒
               isYear:false,//年
               isMyMonth:true,//月
               isMyDay:false,//日
@@ -168,11 +173,13 @@
             if (this.format == 'HH:mm') {
               return false;
             }
-            this.isYear = !this.isYear
+            this.isYear = !this.isYear;
+            this.isMyYear = !this.isMyYear
           },
           //选择年
           YearSelect(num) {
             this.isYear = false;//年
+            this.isMyYear = false;//年
             if (this.DateTime) {
               this.inputTime = num +'-'+ this.DateTime;
             } else {
@@ -287,6 +294,7 @@
             document.addEventListener('click',this.hidePanel,false)
           } else {
               this.isYear = false;//年
+              this.isMyYear = false;//年
               this.getYear();
               this.isMyMonth = true;//月
               this.isMyDay=false;//日
@@ -321,8 +329,8 @@
       min-height: 150px;
       background-color: white;
       box-shadow: 0px 5px 10px #E1F1FF;
-      border-radius: 5px;
       z-index: 9999;
+      border-radius: 10px;
       .TimeTitle{
         width: 100%;
         height: 30px;
@@ -331,6 +339,7 @@
         align-items: center;
         justify-content: space-around;
         color: white;
+        border-radius: 10px 10px 0 0;
         div{
           cursor: pointer;
         }
@@ -374,10 +383,11 @@
           align-items: center;
           justify-content: center;
           border-radius: 3px;
-          border: solid 1px silver;
+          border: solid 1px #E6E6E6;
           margin-right: 10px;
           margin-bottom: 8px;
           cursor: pointer;
+          color: #999999;
         }
         .MyYearNumber:hover{
           background-color: #E1F0FF;
@@ -397,6 +407,7 @@
       flex-wrap: wrap;
       .MyMonthTitle{
         width: 100%;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -411,15 +422,17 @@
         box-sizing: border-box;
         padding-left: 15px;
         .MyMonthNumber{
-          width: 40px;
+          width: 30px;
+          height: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: 3px;
-          border: solid 1px silver;
+          border-radius: 30px;
+          border: solid 1px #E6E6E6;
           margin-right: 10px;
           margin-bottom: 8px;
           cursor: pointer;
+          color: #999999;
         }
         .MyMonthNumber:hover{
           background-color: #E1F0FF;
@@ -438,6 +451,7 @@
       flex-wrap: wrap;
       .MyDayTitle{
         width: 100%;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -453,8 +467,7 @@
         .MyDayNumber{
           width: 30px;
           height: 30px;
-          border: solid 1px silver;
-          color: #333;
+          border: solid 1px #E6E6E6;
           border-radius: 30px;
           display: flex;
           align-items: center;
@@ -462,6 +475,7 @@
           margin-right: 10px;
           margin-bottom: 10px;
           cursor: pointer;
+          color: #999999;
         }
         .MyDayNumber:hover{
           background-color: #E1F0FF;
@@ -481,6 +495,7 @@
       flex-wrap: wrap;
       .MyHourTitle{
         width: 100%;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -494,15 +509,17 @@
         box-sizing: border-box;
         padding-left: 15px;
         .MyHourNumber{
-          width: 40px;
+          width: 30px;
+          height: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: 3px;
-          border: solid 1px silver;
+          border-radius: 30px;
+          border: solid 1px #E6E6E6;
           margin-right: 10px;
           margin-bottom: 8px;
           cursor: pointer;
+          color: #999999;
         }
         .MyHourNumber:hover{
           background-color: #E1F0FF;
@@ -521,6 +538,7 @@
       flex-wrap: wrap;
       .MyMinuteTitle{
         width: 100%;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -531,15 +549,17 @@
         justify-content: center;
         flex-wrap: wrap;
         .MyHourNumber{
-          width: 40px;
+          width: 30px;
+          height: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: 3px;
-          border: solid 1px silver;
+          border-radius: 30px;
+          border: solid 1px #E6E6E6;
           margin-right: 10px;
           margin-bottom: 8px;
           cursor: pointer;
+          color: #999999;
         }
         .MyHourNumber:hover{
           background-color: #E1F0FF;
